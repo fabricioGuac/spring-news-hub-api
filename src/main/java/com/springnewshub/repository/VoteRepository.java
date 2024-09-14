@@ -11,4 +11,7 @@ public interface VoteRepository extends JpaRepository<Vote, Integer>{
 	// Custom query method defined by Spring Data JPA to count the number of votes for a specific post
 	@Query("SELECT count(*) FROM Vote v where v.postId = :id")
 	int countVotesByPostId(@Param("id") Integer id);
+	
+	// Custom query method interpreted by Spring Data JPA to find a vote by post id and user id 
+	 Vote findByPostIdAndUserId(Integer postId, Integer userId);
 }
