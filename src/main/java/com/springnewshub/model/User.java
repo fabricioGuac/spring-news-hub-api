@@ -21,7 +21,7 @@ import jakarta.persistence.Transient;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "user")
+@Table(name = "app_user")
 
 public class User implements Serializable {
 
