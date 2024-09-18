@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Error Page</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+  <div th:if="${error}" class="flash-message">
+    <h2>An Error Occurred</h2>
+    <h3>[[${error}]]</h3>
+  </div>
+
+  <section>
+    <h2>What can you do?</h2>
+    <p>It seems there was an issue. You can try the following actions:</p>
+    <ul>
+      <li><a th:href="@{/dashboard}">Return to Dashboard</a></li>
+      <li><a th:href="@{/}">Go to Home Page</a></li>
+    </ul>
+  </section>
+
+</div>
+
+</body>
+</html>
