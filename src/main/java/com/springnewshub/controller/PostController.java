@@ -162,47 +162,47 @@ public class PostController {
 	    }
 	}
 
-	
-	//Route to delete a vote
-	@DeleteMapping("api/posts/unvote")
-	public ResponseEntity<String> removeVote(@RequestBody Vote vote, HttpServletRequest request) {
-		try {
-	        // Check if the user is logged in
-	        if (request.getSession(false) != null) {
-	            User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
-
-	            // Check if the sessionUser is present
-	            if (sessionUser == null) {
-	                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
-	            }
-
-	            // Find the vote to be removed by postId and userId
-	            Vote existingVote = voteRepository.findByPostIdAndUserId(vote.getPostId(), sessionUser.getId());
-	            if (existingVote == null) {
-	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vote not found for this user and post");
-	            }
-
-	            // Delete the vote
-	            voteRepository.delete(existingVote);
-
-	            // Fetch the updated post and update the vote count
-	            Post updatedPost = repository.findById(vote.getPostId()).orElse(null);
-	            if (updatedPost == null) {
-	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found");
-	            }
-
-	            updatedPost.setVoteCount(voteRepository.countVotesByPostId(vote.getPostId()));
-	            repository.save(updatedPost);
-
-	            return ResponseEntity.ok("Vote removed successfully");
-	        } else {
-	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User session not found");
-	        }
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error removing vote");
-	    }
-	}
-	
+//	
+//	//Route to delete a vote
+//	@DeleteMapping("api/posts/unvote")
+//	public ResponseEntity<String> removeVote(@RequestBody Vote vote, HttpServletRequest request) {
+//		try {
+//	        // Check if the user is logged in
+//	        if (request.getSession(false) != null) {
+//	            User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
+//
+//	            // Check if the sessionUser is present
+//	            if (sessionUser == null) {
+//	                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not logged in");
+//	            }
+//
+//	            // Find the vote to be removed by postId and userId
+//	            Vote existingVote = voteRepository.findByPostIdAndUserId(vote.getPostId(), sessionUser.getId());
+//	            if (existingVote == null) {
+//	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vote not found for this user and post");
+//	            }
+//
+//	            // Delete the vote
+//	            voteRepository.delete(existingVote);
+//
+//	            // Fetch the updated post and update the vote count
+//	            Post updatedPost = repository.findById(vote.getPostId()).orElse(null);
+//	            if (updatedPost == null) {
+//	                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Post not found");
+//	            }
+//
+//	            updatedPost.setVoteCount(voteRepository.countVotesByPostId(vote.getPostId()));
+//	            repository.save(updatedPost);
+//
+//	            return ResponseEntity.ok("Vote removed successfully");
+//	        } else {
+//	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User session not found");
+//	        }
+//	    } catch (Exception e) {
+//	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error removing vote");
+//	    }
+//	}
+//	
 	
 	//Route to delete a post
 	@DeleteMapping("/api/posts/{id}")
