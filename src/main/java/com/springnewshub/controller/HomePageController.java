@@ -204,7 +204,7 @@ public class HomePageController {
 	}
 
 	
-	@GetMapping("/dahsboard/edit/{id}")
+	@GetMapping("/dashboard/edit/{id}")
 	public String editPostPageSetup(@PathVariable int id, Model model, HttpServletRequest request) {
 		 // Check if a user session exists (i.e., if the user is logged in)
 	    if (request.getSession(false) != null) {
